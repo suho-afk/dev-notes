@@ -6,15 +6,15 @@ public:
 	Test(const Test& t) : x(t.x) {}
 	Test& operator++() {
 		x++;
-		std::cout << "ÀüÀ§ Áõ°¨ ¿¬»êÀÚ" << std::endl;
+		std::cout << "ì „ìœ„ ì¦ê° ì—°ì‚°ì" << std::endl;
 		return *this;
 	}
-	// ÀüÀ§ Áõ°¨°ú ÈÄÀ§ Áõ°¨¿¡ Â÷ÀÌ¸¦ µÎ±â À§ÇØ ÈÄÀ§ Áõ°¨ÀÇ °æ¿ì ÀÎÀÚ·Î int ¸¦
-	// ¹ŞÁö¸¸ ½ÇÁ¦·Î´Â ¾Æ¹«°Íµµ Àü´ŞµÇÁö ¾Ê´Â´Ù.
+	// ì „ìœ„ ì¦ê°ê³¼ í›„ìœ„ ì¦ê°ì— ì°¨ì´ë¥¼ ë‘ê¸° ìœ„í•´ í›„ìœ„ ì¦ê°ì˜ ê²½ìš° ì¸ìë¡œ int ë¥¼
+	// ë°›ì§€ë§Œ ì‹¤ì œë¡œëŠ” ì•„ë¬´ê²ƒë„ ì „ë‹¬ë˜ì§€ ì•ŠëŠ”ë‹¤.
 		Test operator++(int) {
 		Test temp(*this);
 		x++;
-		std::cout << "ÈÄÀ§ Áõ°¨ ¿¬»êÀÚ" << std::endl;
+		std::cout << "í›„ìœ„ ì¦ê° ì—°ì‚°ì" << std::endl;
 		return temp;
 	}
 	int get_x() const {
@@ -27,6 +27,6 @@ void func(const Test& t) {
 int main() {
 	Test t(3);
 	func(++t); // 4
-	func(t++); // 4 °¡ Ãâ·ÂµÊ
+	func(t++); // 4 ê°€ ì¶œë ¥ë¨
 	std::cout << "x : " << t.get_x() << std::endl;
 }

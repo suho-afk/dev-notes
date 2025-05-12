@@ -1,4 +1,4 @@
-// C++ ½ºÅ¸ÀÏ Å¬·¡½º Àû¿ë
+ï»¿// C++ ìŠ¤íƒ€ì¼ í´ë˜ìŠ¤ ì ìš©
 #include <string.h>
 #include <iostream>
 class Photon_Cannon {
@@ -21,7 +21,7 @@ Photon_Cannon::Photon_Cannon(int x, int y) {
 	name = NULL;
 }
 Photon_Cannon::Photon_Cannon(const Photon_Cannon& pc) {
-	std::cout << "º¹»ç »ı¼ºÀÚ È£Ãâ! " << std::endl;
+	std::cout << "ë³µì‚¬ ìƒì„±ì í˜¸ì¶œ! " << std::endl;
 	hp = pc.hp;
 	shield = pc.shield;
 	coord_x = pc.coord_x;
@@ -52,4 +52,4 @@ int main() {
 	Photon_Cannon pc2 = pc1;
 	pc1.show_status();
 	pc2.show_status();
-}
+}

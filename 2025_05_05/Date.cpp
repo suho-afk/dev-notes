@@ -1,11 +1,11 @@
 #include <iostream>
 
-//¸ğµÎÀÇ C++ p73 ¹®Á¦
+//ëª¨ë‘ì˜ C++ p73 ë¬¸ì œ
 
 class Date {
 	int year_;
-	int month_; // 1 ºÎÅÍ 12 ±îÁö.
-	int day_; // 1 ºÎÅÍ 31 ±îÁö.
+	int month_; // 1 ë¶€í„° 12 ê¹Œì§€.
+	int day_; // 1 ë¶€í„° 31 ê¹Œì§€.
 public:
 	Date(int year, int month, int date);
 	void SetDate(int year, int month, int date);
@@ -16,7 +16,7 @@ public:
 	void ShowDate();
 };
 
-//»ı¼ºÀÚ
+//ìƒì„±ì
 Date::Date(int year, int month, int date)
 {
 	year_ = year;
@@ -37,7 +37,7 @@ void Date::AddDay(int inc)
 	{
 		int result_day = day_+inc;
 
-		// ÇöÀç ´ŞÀÇ ÃÑ ÀÏ ¼ö
+		// í˜„ì¬ ë‹¬ì˜ ì´ ì¼ ìˆ˜
 		int current_month_total_days = GetCurrentMonthTotalDays(year_, month_);
 
 		if (result_day <= current_month_total_days)
@@ -54,7 +54,7 @@ void Date::AddDay(int inc)
 	}
 }
 
-//À±³âÀ» Æ÷ÇÔÇÑ ±× ´Ş¿¡ µµ´ŞÇÒ¼ö ÀÖ´Â ³¯ÀÇ °ªÀ» ¸®ÅÏÇÏ´Â ÇÔ¼ö
+//ìœ¤ë…„ì„ í¬í•¨í•œ ê·¸ ë‹¬ì— ë„ë‹¬í• ìˆ˜ ìˆëŠ” ë‚ ì˜ ê°’ì„ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜
 int Date::GetCurrentMonthTotalDays(int year, int month)
 {
 	static int month_day[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -62,7 +62,7 @@ int Date::GetCurrentMonthTotalDays(int year, int month)
 		return month_day[month - 1];
 	}
 	else if (year % 4 == 0 && year % 100 != 0) {
-		return 29; // À±³â
+		return 29; // ìœ¤ë…„
 	}
 	else {
 		return 28;
@@ -71,7 +71,7 @@ int Date::GetCurrentMonthTotalDays(int year, int month)
 
 void Date::AddMonth(int inc)
 {
-	//ÃÖÁ¾ ¿ù
+	//ìµœì¢… ì›”
 	int result_month = month_ + inc;
 
 	if (result_month > 12)
@@ -93,8 +93,8 @@ void Date::AddYear(int inc)
 
 void Date::ShowDate()
 {
-	std::cout << "¿À´ÃÀº " << year_ << " ³â " << month_ << " ¿ù " << day_
-		<< " ÀÏ ÀÔ´Ï´Ù " << std::endl;
+	std::cout << "ì˜¤ëŠ˜ì€ " << year_ << " ë…„ " << month_ << " ì›” " << day_
+		<< " ì¼ ì…ë‹ˆë‹¤ " << std::endl;
 }
 
 int main()
@@ -106,7 +106,7 @@ int main()
 	day.ShowDate();
 	day.AddDay(2000);
 	day.ShowDate();
-	day.SetDate(2012, 1, 31); // À±³â
+	day.SetDate(2012, 1, 31); // ìœ¤ë…„
 	day.AddDay(29);
 	day.ShowDate();
 	day.SetDate(2012, 8, 4);

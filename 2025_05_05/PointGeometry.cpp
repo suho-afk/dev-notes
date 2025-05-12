@@ -20,7 +20,7 @@ int Point::EvalLine(int a, int b, int c) const
 }
 
 class Geometry {
-	// Á¡ 100 °³¸¦ º¸°üÇÏ´Â ¹è¿­.
+	// ì  100 ê°œë¥¼ ë³´ê´€í•˜ëŠ” ë°°ì—´.
 	Point* point_array[100];
 public:
 	Geometry(Point** point_list);
@@ -28,13 +28,13 @@ public:
 	void AddPoint(const Point& point);
 
 	int max_idx;
-	// ¸ğµç Á¡µé °£ÀÇ °Å¸®¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö ÀÔ´Ï´Ù.
+	// ëª¨ë“  ì ë“¤ ê°„ì˜ ê±°ë¦¬ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ ì…ë‹ˆë‹¤.
 	void PrintDistance();
 
-	// ¸ğµç Á¡µéÀ» ÀÕ´Â Á÷¼±µé °£ÀÇ ±³Á¡ÀÇ ¼ö¸¦ Ãâ·ÂÇØÁÖ´Â ÇÔ¼ö ÀÔ´Ï´Ù.
-	// Âü°íÀûÀ¸·Î ÀÓÀÇÀÇ µÎ Á¡À» ÀÕ´Â Á÷¼±ÀÇ ¹æÁ¤½ÄÀ» f(x,y) = ax+by+c = 0
-	// ÀÌ¶ó°í ÇÒ ¶§ ÀÓÀÇÀÇ ´Ù¸¥ µÎ Á¡ (x1, y1) °ú (x2, y2) °¡ f(x,y)=0 À» ±âÁØÀ¸·Î
-	// ¼­·Î ´Ù¸¥ ºÎºĞ¿¡ ÀÖÀ» Á¶°ÇÀº f(x1, y1) * f(x2, y2) <= 0 ÀÌ¸é µË´Ï´Ù.
+	// ëª¨ë“  ì ë“¤ì„ ì‡ëŠ” ì§ì„ ë“¤ ê°„ì˜ êµì ì˜ ìˆ˜ë¥¼ ì¶œë ¥í•´ì£¼ëŠ” í•¨ìˆ˜ ì…ë‹ˆë‹¤.
+	// ì°¸ê³ ì ìœ¼ë¡œ ì„ì˜ì˜ ë‘ ì ì„ ì‡ëŠ” ì§ì„ ì˜ ë°©ì •ì‹ì„ f(x,y) = ax+by+c = 0
+	// ì´ë¼ê³  í•  ë•Œ ì„ì˜ì˜ ë‹¤ë¥¸ ë‘ ì  (x1, y1) ê³¼ (x2, y2) ê°€ f(x,y)=0 ì„ ê¸°ì¤€ìœ¼ë¡œ
+	// ì„œë¡œ ë‹¤ë¥¸ ë¶€ë¶„ì— ìˆì„ ì¡°ê±´ì€ f(x1, y1) * f(x2, y2) <= 0 ì´ë©´ ë©ë‹ˆë‹¤.
 	void PrintNumMeets();
 
 	float CaluculateDistance(Point* p1, Point* p2);
@@ -80,7 +80,7 @@ void Geometry::PrintNumMeets()
 
 	for (int i = 0; i < max_idx; i++) {
 		for (int j = i + 1; j < max_idx; j++) {
-			// Á÷¼± (i, j)¸¦ ±âÁØÀ¸·Î Àâ°í
+			// ì§ì„  (i, j)ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì¡ê³ 
 			int a = point_array[i]->x - point_array[j]->y;
 			int b = point_array[j]->x - point_array[i]->y;
 			int c = -(a * point_array[i]->x + b * point_array[i]->y);
@@ -99,7 +99,7 @@ void Geometry::PrintNumMeets()
 			}
 		}
 	}
-	std::cout << "Á÷¼±µé °£ÀÇ ±³Á¡ ¼ö: " << count / 2 << "\n"; // Áßº¹ °è»ê Á¦°Å
+	std::cout << "ì§ì„ ë“¤ ê°„ì˜ êµì  ìˆ˜: " << count / 2 << "\n"; // ì¤‘ë³µ ê³„ì‚° ì œê±°
 }
 
 float Geometry::CaluculateDistance(Point* p1, Point* p2)

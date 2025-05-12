@@ -1,15 +1,15 @@
 #include <iostream>
 #include <cstring>
 class MyString {
-	char* string_content; // ¹®ÀÚ¿­ µ¥ÀÌÅÍ¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
-	int string_length; // ¹®ÀÚ¿­ ±æÀÌ
-	int memory_capacity; // ÇöÀç ÇÒ´çµÈ ¿ë·®
+	char* string_content; // ë¬¸ìì—´ ë°ì´í„°ë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°
+	int string_length; // ë¬¸ìì—´ ê¸¸ì´
+	int memory_capacity; // í˜„ì¬ í• ë‹¹ëœ ìš©ëŸ‰
 public:
-	// ¹®ÀÚ ÇÏ³ª·Î »ı¼º
+	// ë¬¸ì í•˜ë‚˜ë¡œ ìƒì„±
 	MyString(char c);
-	// ¹®ÀÚ¿­·Î ºÎÅÍ »ı¼º
+	// ë¬¸ìì—´ë¡œ ë¶€í„° ìƒì„±
 	MyString(const char* str);
-	// º¹»ç »ı¼ºÀÚ
+	// ë³µì‚¬ ìƒì„±ì
 	MyString(const MyString& str);
 	~MyString();
 	int length();
@@ -55,4 +55,4 @@ int main() {
 	MyString str("abcdef");
 	str[3] = 'c';
 	str.println();
-}
+}

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
 #include<algorithm>
-// string.h ´Â strlen ¶§¹®¿¡ include Çß´Âµ¥, »ç½Ç ¿©·¯ºĞÀÌ Á÷Á¢ strlen
-// °ú °°Àº ÇÔ¼ö¸¦ ¸¸µé¾î¼­ ½áµµ µË´Ï´Ù.
+// string.h ëŠ” strlen ë•Œë¬¸ì— include í–ˆëŠ”ë°, ì‚¬ì‹¤ ì—¬ëŸ¬ë¶„ì´ ì§ì ‘ strlen
+// ê³¼ ê°™ì€ í•¨ìˆ˜ë¥¼ ë§Œë“¤ì–´ì„œ ì¨ë„ ë©ë‹ˆë‹¤.
 /**
-* ±âÁ¸ MyString Å¬·¡½º¿¡¼­
-* assing,reserve,capacity,at,insert,erase,find,compare Ãß°¡
-* KMP,Boyer - Moore ¾Ë°í¸®ÁòÀ» Ãß°¡ÇÑ find
+* ê¸°ì¡´ MyString í´ë˜ìŠ¤ì—ì„œ
+* assing,reserve,capacity,at,insert,erase,find,compare ì¶”ê°€
+* KMP,Boyer - Moore ì•Œê³ ë¦¬ì¦˜ì„ ì¶”ê°€í•œ find
 */
 #include <string.h>
 
@@ -25,7 +25,7 @@ std::vector<int> getPartialMatch(const MyString& pattern) {
 }
 
 std::vector<int> buildBadCharTable(const MyString& pattern) {
-	std::vector<int> badChar(256, -1); // ASCII ±âÁØ
+	std::vector<int> badChar(256, -1); // ASCII ê¸°ì¤€
 	for (int i = 0; i < pattern.length(); i++) {
 		badChar[(unsigned char)pattern.at(i)] = i;
 	}
@@ -33,15 +33,15 @@ std::vector<int> buildBadCharTable(const MyString& pattern) {
 }
 
 class MyString {
-	char* string_content; // ¹®ÀÚ¿­ µ¥ÀÌÅÍ¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
-	int string_length; // ¹®ÀÚ¿­ ±æÀÌ
-	int memory_capacity; // ÇöÀç ÇÒ´çµÈ ¿ë·®
+	char* string_content; // ë¬¸ìì—´ ë°ì´í„°ë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°
+	int string_length; // ë¬¸ìì—´ ê¸¸ì´
+	int memory_capacity; // í˜„ì¬ í• ë‹¹ëœ ìš©ëŸ‰
 public:
-	// ¹®ÀÚ ÇÏ³ª·Î »ı¼º
+	// ë¬¸ì í•˜ë‚˜ë¡œ ìƒì„±
 	MyString(char c);
-	// ¹®ÀÚ¿­·Î ºÎÅÍ »ı¼º
+	// ë¬¸ìì—´ë¡œ ë¶€í„° ìƒì„±
 	MyString(const char* str);
-	// º¹»ç »ı¼ºÀÚ
+	// ë³µì‚¬ ìƒì„±ì
 	MyString(const MyString& str);
 	~MyString();
 	int length() const;
@@ -105,7 +105,7 @@ void MyString::println() const {
 }
 MyString& MyString::assign(const MyString& str) {
 	if (str.string_length > memory_capacity) {
-		// ±×·¯¸é ´Ù½Ã ÇÒ´çÀ» ÇØÁà¾ß¸¸ ÇÑ´Ù.
+		// ê·¸ëŸ¬ë©´ ë‹¤ì‹œ í• ë‹¹ì„ í•´ì¤˜ì•¼ë§Œ í•œë‹¤.
 		delete[] string_content;
 		string_content = new char[str.string_length];
 		memory_capacity = str.string_length;
@@ -113,15 +113,15 @@ MyString& MyString::assign(const MyString& str) {
 	for (int i = 0; i != str.string_length; i++) {
 		string_content[i] = str.string_content[i];
 	}
-	// ±×¸®°í ±»ÀÌ str.string_length + 1 ~ string_length ºÎºĞÀº ÃÊ±âÈ­
-	// ½ÃÅ³ ÇÊ¿ä´Â ¾ø´Ù. ¿Ö³ÄÇÏ¸é °Å±â ±îÁö´Â ÀĞ¾îµéÀÌÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+	// ê·¸ë¦¬ê³  êµ³ì´ str.string_length + 1 ~ string_length ë¶€ë¶„ì€ ì´ˆê¸°í™”
+	// ì‹œí‚¬ í•„ìš”ëŠ” ì—†ë‹¤. ì™œëƒí•˜ë©´ ê±°ê¸° ê¹Œì§€ëŠ” ì½ì–´ë“¤ì´ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 	string_length = str.string_length;
 	return *this;
 }
 MyString& MyString::assign(const char* str) {
 	int str_length = strlen(str);
 	if (str_length > memory_capacity) {
-		// ±×·¯¸é ´Ù½Ã ÇÒ´çÀ» ÇØÁà¾ß¸¸ ÇÑ´Ù.
+		// ê·¸ëŸ¬ë©´ ë‹¤ì‹œ í• ë‹¹ì„ í•´ì¤˜ì•¼ë§Œ í•œë‹¤.
 		delete[] string_content;
 		string_content = new char[str_length];
 		memory_capacity = str_length;
@@ -142,8 +142,8 @@ void MyString::reserve(int size) {
 			string_content[i] = prev_string_content[i];
 			delete[] prev_string_content;
 	}
-	// ¸¸ÀÏ ¿¹¾àÇÏ·Á´Â size °¡ ÇöÀç capacity º¸´Ù ÀÛ´Ù¸é
-	// ¾Æ¹«°Íµµ ¾ÈÇØµµ µÈ´Ù.
+	// ë§Œì¼ ì˜ˆì•½í•˜ë ¤ëŠ” size ê°€ í˜„ì¬ capacity ë³´ë‹¤ ì‘ë‹¤ë©´
+	// ì•„ë¬´ê²ƒë„ ì•ˆí•´ë„ ëœë‹¤.
 }
 char MyString::at(int i) const {
 	if (i >= string_length || i < 0) {
@@ -154,28 +154,28 @@ char MyString::at(int i) const {
 	}
 }
 MyString& MyString::insert(int loc, const MyString& str) {
-	// ÀÌ´Â i ÀÇ À§Ä¡ ¹Ù·Î ¾Õ¿¡ ¹®ÀÚ¸¦ »ğÀÔÇÏ°Ô µÈ´Ù. ¿¹¸¦ µé¾î¼­
-	// abc ¶ó´Â ¹®ÀÚ¿­¿¡ insert(1, "d") ¸¦ ÇÏ°Ô µÈ´Ù¸é adbc °¡ µÈ´Ù.
-	// ¹üÀ§¸¦ ¹ş¾î³ª´Â ÀÔ·Â¿¡ ´ëÇØ¼­´Â »ğÀÔÀ» ¼öÇàÇÏÁö ¾Ê´Â´Ù.
+	// ì´ëŠ” i ì˜ ìœ„ì¹˜ ë°”ë¡œ ì•ì— ë¬¸ìë¥¼ ì‚½ì…í•˜ê²Œ ëœë‹¤. ì˜ˆë¥¼ ë“¤ì–´ì„œ
+	// abc ë¼ëŠ” ë¬¸ìì—´ì— insert(1, "d") ë¥¼ í•˜ê²Œ ëœë‹¤ë©´ adbc ê°€ ëœë‹¤.
+	// ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ëŠ” ì…ë ¥ì— ëŒ€í•´ì„œëŠ” ì‚½ì…ì„ ìˆ˜í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (loc < 0 || loc > string_length) return *this;
 	if (string_length + str.string_length > memory_capacity) {
-		// ÀÌÁ¦ »õ·Ó°Ô µ¿ÀûÀ¸·Î ÇÒ´çÀ» ÇØ¾ß ÇÑ´Ù.
+		// ì´ì œ ìƒˆë¡­ê²Œ ë™ì ìœ¼ë¡œ í• ë‹¹ì„ í•´ì•¼ í•œë‹¤.
 		if (memory_capacity * 2 > string_length + str.string_length)
 			memory_capacity *= 2;
 		else
 			memory_capacity = string_length + str.string_length;
 		char* prev_string_content = string_content;
 		string_content = new char[memory_capacity];
-		// ÀÏ´Ü insert µÇ´Â ºÎºĞ Á÷Àü±îÁöÀÇ ³»¿ëÀ» º¹»çÇÑ´Ù.
+		// ì¼ë‹¨ insert ë˜ëŠ” ë¶€ë¶„ ì§ì „ê¹Œì§€ì˜ ë‚´ìš©ì„ ë³µì‚¬í•œë‹¤.
 		int i;
 		for (i = 0; i < loc; i++) {
 			string_content[i] = prev_string_content[i];
 		}
-		// ±×¸®°í »õ·Ó¿¡ insert µÇ´Â ¹®ÀÚ¿­À» ³Ö´Â´Ù.
+		// ê·¸ë¦¬ê³  ìƒˆë¡­ì— insert ë˜ëŠ” ë¬¸ìì—´ì„ ë„£ëŠ”ë‹¤.
 		for (int j = 0; j != str.string_length; j++) {
 			string_content[i + j] = str.string_content[j];
 		}
-		// ÀÌÁ¦ ´Ù½Ã ¿ø ¹®ÀÚ¿­ÀÇ ³ª¸ÓÁö µŞºÎºĞÀ» º¹»çÇÑ´Ù.
+		// ì´ì œ ë‹¤ì‹œ ì› ë¬¸ìì—´ì˜ ë‚˜ë¨¸ì§€ ë’·ë¶€ë¶„ì„ ë³µì‚¬í•œë‹¤.
 		for (; i < string_length; i++) {
 			string_content[str.string_length + i] = prev_string_content[i];
 		}
@@ -183,13 +183,13 @@ MyString& MyString::insert(int loc, const MyString& str) {
 		string_length = string_length + str.string_length;
 		return *this;
 	}
-	// ¸¸ÀÏ ÃÊ°úÇÏÁö ¾Ê´Â °æ¿ì ±»ÀÌ µ¿ÀûÇÒ´çÀ» ÇÒ ÇÊ¿ä°¡ ¾ø°Ô µÈ´Ù.
-	// È¿À²ÀûÀ¸·Î insert ÇÏ±â À§ÇØ, ¹Ğ¸®´Â ºÎºĞÀ» ¸ÕÀú µÚ·Î ¹Ğ¾î¹ö¸°´Ù.
+	// ë§Œì¼ ì´ˆê³¼í•˜ì§€ ì•ŠëŠ” ê²½ìš° êµ³ì´ ë™ì í• ë‹¹ì„ í•  í•„ìš”ê°€ ì—†ê²Œ ëœë‹¤.
+	// íš¨ìœ¨ì ìœ¼ë¡œ insert í•˜ê¸° ìœ„í•´, ë°€ë¦¬ëŠ” ë¶€ë¶„ì„ ë¨¼ì € ë’¤ë¡œ ë°€ì–´ë²„ë¦°ë‹¤.
 	for (int i = string_length - 1; i >= loc; i--) {
-		// µÚ·Î ¹Ğ±â. ÀÌ ¶§ ¿ø·¡ÀÇ ¹®ÀÚ¿­ µ¥ÀÌÅÍ°¡ »ç¶óÁöÁö ¾Ê°Ô ÇÔ
+		// ë’¤ë¡œ ë°€ê¸°. ì´ ë•Œ ì›ë˜ì˜ ë¬¸ìì—´ ë°ì´í„°ê°€ ì‚¬ë¼ì§€ì§€ ì•Šê²Œ í•¨
 		string_content[i + str.string_length] = string_content[i];
 	}
-	// ±×¸®°í insert µÇ´Â ¹®ÀÚ ´Ù½Ã Áı¾î³Ö±â
+	// ê·¸ë¦¬ê³  insert ë˜ëŠ” ë¬¸ì ë‹¤ì‹œ ì§‘ì–´ë„£ê¸°
 	for (int i = 0; i < str.string_length; i++)
 		string_content[i + loc] = str.string_content[i];
 	string_length = string_length + str.string_length;
@@ -204,10 +204,10 @@ MyString& MyString::insert(int loc, char c) {
 	return insert(loc, temp);
 }
 MyString& MyString::erase(int loc, int num) {
-	// loc ÀÇ ¾Õ ºÎÅÍ ½ÃÀÛÇØ¼­ num ¹®ÀÚ¸¦ Áö¿î´Ù.
+	// loc ì˜ ì• ë¶€í„° ì‹œì‘í•´ì„œ num ë¬¸ìë¥¼ ì§€ìš´ë‹¤.
 	if (num < 0 || loc < 0 || loc > string_length) return *this;
-	// Áö¿î´Ù´Â °ÍÀº ´Ü¼øÈ÷ µÚÀÇ ¹®ÀÚµéÀ» ¾ÕÀ¸·Î ²ø°í ¿Â´Ù°í
-	// »ı°¢ÇÏ¸é µË´Ï´Ù.
+	// ì§€ìš´ë‹¤ëŠ” ê²ƒì€ ë‹¨ìˆœíˆ ë’¤ì˜ ë¬¸ìë“¤ì„ ì•ìœ¼ë¡œ ëŒê³  ì˜¨ë‹¤ê³ 
+	// ìƒê°í•˜ë©´ ë©ë‹ˆë‹¤.
 	for (int i = loc + num; i < string_length; i++) {
 		string_content[i - num] = string_content[i];
 	}
@@ -223,7 +223,7 @@ int MyString::find(int find_from, const MyString& str) const {
 		}
 		if (j == str.string_length) return i;
 	}
-	return -1; // Ã£Áö ¸øÇßÀ½
+	return -1; // ì°¾ì§€ ëª»í–ˆìŒ
 }
 int MyString::find(int find_from, const char* str) const {
 	MyString temp(str);
@@ -234,19 +234,19 @@ int MyString::find(int find_from, char c) const {
 	return find(find_from, temp);
 }
 int MyString::compare(const MyString& str) const {
-	// (*this) - (str) À» ¼öÇàÇØ¼­ ±× 1, 0, -1 ·Î ±× °á°ú¸¦ ¸®ÅÏÇÑ´Ù
-	// 1 Àº (*this) °¡ »çÀü½ÄÀ¸·Î ´õ µÚ¿¡ ¿Â´Ù´Â ÀÇ¹Ì. 0 Àº µÎ ¹®ÀÚ¿­
-	// ÀÌ °°´Ù´Â ÀÇ¹Ì, -1 Àº (*this) °¡ »çÀü½ÄÀ¸·Î ´õ ¾Õ¿¡ ¿Â´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+	// (*this) - (str) ì„ ìˆ˜í–‰í•´ì„œ ê·¸ 1, 0, -1 ë¡œ ê·¸ ê²°ê³¼ë¥¼ ë¦¬í„´í•œë‹¤
+	// 1 ì€ (*this) ê°€ ì‚¬ì „ì‹ìœ¼ë¡œ ë” ë’¤ì— ì˜¨ë‹¤ëŠ” ì˜ë¯¸. 0 ì€ ë‘ ë¬¸ìì—´
+	// ì´ ê°™ë‹¤ëŠ” ì˜ë¯¸, -1 ì€ (*this) ê°€ ì‚¬ì „ì‹ìœ¼ë¡œ ë” ì•ì— ì˜¨ë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 	for (int i = 0; i < std::min(string_length, str.string_length); i++) {
 		if (string_content[i] > str.string_content[i])
 			return 1;
 		else if (string_content[i] < str.string_content[i])
 			return -1;
 	}
-	// ¿©±â ±îÁö Çß´Âµ¥ ³¡³ªÁö ¾Ê¾Ò´Ù¸é ¾Õ ºÎºĞ ±îÁö ¸ğµÎ ¶È°°Àº °ÍÀÌ µÈ´Ù.
-	// ¸¸ÀÏ ¹®ÀÚ¿­ ±æÀÌ°¡ °°´Ù¸é µÎ ¹®ÀÚ¿­Àº ¾Æ¿¹ °°Àº ¹®ÀÚ¿­ÀÌ µÈ´Ù.
+	// ì—¬ê¸° ê¹Œì§€ í–ˆëŠ”ë° ëë‚˜ì§€ ì•Šì•˜ë‹¤ë©´ ì• ë¶€ë¶„ ê¹Œì§€ ëª¨ë‘ ë˜‘ê°™ì€ ê²ƒì´ ëœë‹¤.
+	// ë§Œì¼ ë¬¸ìì—´ ê¸¸ì´ê°€ ê°™ë‹¤ë©´ ë‘ ë¬¸ìì—´ì€ ì•„ì˜ˆ ê°™ì€ ë¬¸ìì—´ì´ ëœë‹¤.
 	if (string_length == str.string_length) return 0;
-	// Âü°í·Î abc ¿Í abcd ÀÇ Å©±â ºñ±³´Â abcd °¡ ´õ µÚ¿¡ ¿À°Ô µÈ´Ù.
+	// ì°¸ê³ ë¡œ abc ì™€ abcd ì˜ í¬ê¸° ë¹„êµëŠ” abcd ê°€ ë” ë’¤ì— ì˜¤ê²Œ ëœë‹¤.
 	else if (string_length > str.string_length)
 		return 1;
 	return -1;
@@ -264,11 +264,11 @@ int MyString::findKMP(int find_from, const MyString& pattern) const
 		if (this->at(i) == pattern.at(j)) {
 			j++;
 			if (j == pattern.length()) {
-				return i - pattern.length() + 1; // ¸ÅÄª ½ÃÀÛ À§Ä¡ ¹İÈ¯
+				return i - pattern.length() + 1; // ë§¤ì¹­ ì‹œì‘ ìœ„ì¹˜ ë°˜í™˜
 			}
 		}
 	}
-	return -1; // Ã£Áö ¸øÇÔ
+	return -1; // ì°¾ì§€ ëª»í•¨
 }
 int MyString::findKMP(int find_from, const char* str) const
 {
@@ -286,21 +286,21 @@ int MyString::findBM(int find_from, const MyString& pattern) const
 	std::vector<int> badChar = buildBadCharTable(pattern);
 	int n = this->length();
 	int m = pattern.length();
-	int s = find_from; // shift À§Ä¡
+	int s = find_from; // shift ìœ„ì¹˜
 
 	while (s <= n - m) {
 		int j = m - 1;
 
-		// µÚ¿¡¼­ºÎÅÍ ºñ±³
+		// ë’¤ì—ì„œë¶€í„° ë¹„êµ
 		while (j >= 0 && pattern.at(j) == this->at(s + j)) {
 			j--;
 		}
 
 		if (j < 0) {
-			return s; // ÀÏÄ¡ÇÑ °æ¿ì
+			return s; // ì¼ì¹˜í•œ ê²½ìš°
 		}
 		else {
-			// ºÒÀÏÄ¡: bad character rule¿¡ µû¶ó Á¡ÇÁ
+			// ë¶ˆì¼ì¹˜: bad character ruleì— ë”°ë¼ ì í”„
 			int bad_char_index = (unsigned char)this->at(s + j);
 			int shift = std::max(1, j - badChar[bad_char_index]);
 			s += shift;
