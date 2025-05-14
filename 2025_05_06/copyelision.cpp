@@ -5,7 +5,7 @@ public:
 	A(int c) : x(c) {}
 	A(const A& a) {
 		x = a.x;
-		std::cout << "º¹»ç »ı¼º" << std::endl;
+		std::cout << "ë³µì‚¬ ìƒì„±ìí˜¸ì¶œ" << std::endl;
 	}
 };
 class B {
